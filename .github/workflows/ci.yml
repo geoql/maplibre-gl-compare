@@ -58,16 +58,7 @@ jobs:
         run: bun install --frozen-lockfile
 
       - name: Run tests
-        id: test
-        run: |
-          bun run test 2>&1 | tee test-output.txt || true
-          if grep -q "Tests.*passed" test-output.txt && ! grep -q "Tests.*failed" test-output.txt; then
-            echo "Tests passed!"
-            exit 0
-          else
-            echo "Tests failed!"
-            exit 1
-          fi
+        run: bun run test
 
   build:
     name: Build Library
