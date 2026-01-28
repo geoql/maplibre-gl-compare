@@ -56,17 +56,60 @@ canvas {
   position: relative;
 }
 
-.compare-swiper-vertical::after,
-.compare-swiper-horizontal::after {
-  content: '↔';
-  font-size: 18px;
-  color: #a1a1aa;
+#controls {
   position: absolute;
-  top: 50%;
+  top: 10px;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 8px 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.compare-swiper-horizontal::after {
-  content: '↕';
+#controls label {
+  color: #374151;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+#controls select {
+  padding: 4px 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  background: white;
+  color: #374151;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#controls select:focus {
+  outline: none;
+  border-color: #3887be;
+  box-shadow: 0 0 0 2px rgba(56, 135, 190, 0.2);
+}
+
+@media (prefers-color-scheme: dark) {
+  #controls {
+    background: rgba(31, 41, 55, 0.95);
+  }
+
+  #controls label {
+    color: #e5e7eb;
+  }
+
+  #controls select {
+    background: #374151;
+    border-color: #4b5563;
+    color: #e5e7eb;
+  }
+
+  #controls select:focus {
+    border-color: #60a5fa;
+    box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2);
+  }
 }

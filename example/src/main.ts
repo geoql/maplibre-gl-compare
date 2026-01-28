@@ -1,5 +1,6 @@
 import maplibregl from 'maplibre-gl';
 import { Compare } from '@geoql/maplibre-gl-compare';
+import type { Theme } from '@geoql/maplibre-gl-compare';
 import './style.css';
 
 const beforeMap = new maplibregl.Map({
@@ -33,15 +34,18 @@ afterMap.on('load', () => {
 const compare = new Compare(beforeMap, afterMap, '#comparison-container', {
   mousemove: false,
   orientation: 'vertical',
-  swiperIcon: 'none',
-  swiperStyle: {
-    backgroundColor: '#18181b',
-    boxShadow: '0 0 0 2px rgba(255,255,255,0.15), 0 8px 24px rgba(0,0,0,0.5)',
-    width: '40px',
-    height: '40px',
-  },
+  theme: 'system',
 });
 
 compare.on('slideend', (e) => {
   console.log('Slider position:', e.currentPosition);
+});
+
+const themeSelect = document.getElementById(
+  'theme-select',
+) as HTMLSelectElement;
+themeSelect.addEventListener('change', () => {
+  const theme = themeSelect.value as Theme;
+  compare.setTheme(theme);
+  console.log('Theme changed to:', theme);
 });

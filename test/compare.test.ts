@@ -557,5 +557,156 @@ describe('Compare', () => {
       compare.fire('slideend', { currentPosition: 100 });
       expect(listener).not.toHaveBeenCalled();
     });
+
+    it('should remove data-compare-theme attribute on remove', () => {
+      const compare = new Compare(mapA, mapB, container, { theme: 'dark' });
+
+      expect(document.documentElement.getAttribute('data-compare-theme')).toBe(
+        'dark',
+      );
+
+      compare.remove();
+
+      expect(
+        document.documentElement.getAttribute('data-compare-theme'),
+      ).toBeNull();
+    });
+  });
+
+  describe('theme', () => {
+    afterEach(() => {
+      document.documentElement.removeAttribute('data-compare-theme');
+      document.documentElement.style.removeProperty('--compare-swiper-bg');
+      document.documentElement.style.removeProperty('--compare-swiper-border');
+      document.documentElement.style.removeProperty('--compare-line-bg');
+    });
+
+    it('should default to system theme', () => {
+      const compare = new Compare(mapA, mapB, container);
+
+      expect(compare.theme).toBe('system');
+
+      compare.remove();
+    });
+
+    it('should set light theme when specified', () => {
+      const compare = new Compare(mapA, mapB, container, { theme: 'light' });
+
+      expect(compare.theme).toBe('light');
+      expect(document.documentElement.getAttribute('data-compare-theme')).toBe(
+        'light',
+      );
+
+      compare.remove();
+    });
+
+    it('should set dark theme when specified', () => {
+      const compare = new Compare(mapA, mapB, container, { theme: 'dark' });
+
+      expect(compare.theme).toBe('dark');
+      expect(document.documentElement.getAttribute('data-compare-theme')).toBe(
+        'dark',
+      );
+
+      compare.remove();
+    });
+
+    it('should not set data attribute for system theme', () => {
+      const compare = new Compare(mapA, mapB, container, { theme: 'system' });
+
+      expect(
+        document.documentElement.getAttribute('data-compare-theme'),
+      ).toBeNull();
+
+      compare.remove();
+    });
+
+    it('should apply light colors for light theme', () => {
+      const compare = new Compare(mapA, mapB, container, { theme: 'light' });
+
+      expect(
+        document.documentElement.style.getPropertyValue('--compare-swiper-bg'),
+      ).toBe('#3887be');
+
+      compare.remove();
+    });
+
+    it('should apply dark colors for dark theme', () => {
+      const compare = new Compare(mapA, mapB, container, { theme: 'dark' });
+
+      expect(
+        document.documentElement.style.getPropertyValue('--compare-swiper-bg'),
+      ).toBe('#60a5fa');
+
+      compare.remove();
+    });
+
+    it('should allow custom light colors', () => {
+      const compare = new Compare(mapA, mapB, container, {
+        theme: 'light',
+        lightColors: { swiperBackground: '#ff0000' },
+      });
+
+      expect(
+        document.documentElement.style.getPropertyValue('--compare-swiper-bg'),
+      ).toBe('#ff0000');
+
+      compare.remove();
+    });
+
+    it('should allow custom dark colors', () => {
+      const compare = new Compare(mapA, mapB, container, {
+        theme: 'dark',
+        darkColors: { swiperBackground: '#00ff00' },
+      });
+
+      expect(
+        document.documentElement.style.getPropertyValue('--compare-swiper-bg'),
+      ).toBe('#00ff00');
+
+      compare.remove();
+    });
+
+    it('should change theme with setTheme', () => {
+      const compare = new Compare(mapA, mapB, container, { theme: 'light' });
+
+      compare.setTheme('dark');
+
+      expect(compare.theme).toBe('dark');
+      expect(document.documentElement.getAttribute('data-compare-theme')).toBe(
+        'dark',
+      );
+      expect(
+        document.documentElement.style.getPropertyValue('--compare-swiper-bg'),
+      ).toBe('#60a5fa');
+
+      compare.remove();
+    });
+
+    it('should switch from dark to light theme', () => {
+      const compare = new Compare(mapA, mapB, container, { theme: 'dark' });
+
+      compare.setTheme('light');
+
+      expect(compare.theme).toBe('light');
+      expect(
+        document.documentElement.style.getPropertyValue('--compare-swiper-bg'),
+      ).toBe('#3887be');
+
+      compare.remove();
+    });
+
+    it('should switch to system theme', () => {
+      const compare = new Compare(mapA, mapB, container, { theme: 'dark' });
+
+      compare.setTheme('system');
+
+      expect(compare.theme).toBe('system');
+      expect(
+        document.documentElement.getAttribute('data-compare-theme'),
+      ).toBeNull();
+
+      compare.remove();
+    });
   });
 });

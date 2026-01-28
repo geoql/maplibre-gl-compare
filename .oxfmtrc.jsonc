@@ -8,5 +8,13 @@
   "bracketSpacing": true,
   "arrowParens": "always",
   "endOfLine": "lf",
-  "ignorePatterns": ["dist", "node_modules", "coverage", "bun.lock", "*.lock"],
+  "ignorePatterns": [
+    "dist",
+    "node_modules",
+    "coverage",
+    "bun.lock",
+    "*.lock",
+    "CHANGELOG.md",
+    "jsr.json",
+  ],
 }

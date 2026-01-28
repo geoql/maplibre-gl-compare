@@ -1,5 +1,16 @@
 export type Orientation = 'vertical' | 'horizontal';
 
+export type Theme = 'light' | 'dark' | 'system';
+
+export interface ThemeColors {
+  /** Swiper handle background color */
+  swiperBackground: string;
+  /** Swiper handle border/shadow color */
+  swiperBorder: string;
+  /** Divider line color */
+  lineBackground: string;
+}
+
 export type SwiperStyle = Partial<
   Pick<
     CSSStyleDeclaration,
@@ -18,6 +29,9 @@ export interface CompareOptions {
   mousemove?: boolean;
   swiperIcon?: string;
   swiperStyle?: SwiperStyle;
+  theme?: Theme;
+  lightColors?: Partial<ThemeColors>;
+  darkColors?: Partial<ThemeColors>;
 }
 
 export interface SlideEndEventData {

@@ -69,6 +69,9 @@ interface CompareOptions {
   mousemove?: boolean;
   swiperIcon?: string;
   swiperStyle?: SwiperStyle;
+  theme?: Theme;
+  lightColors?: Partial<ThemeColors>;
+  darkColors?: Partial<ThemeColors>;
 }
 ```
 
@@ -78,10 +81,21 @@ interface CompareOptions {
 | `mousemove`   | `boolean`                    | `false`            | If `true`, swiper follows mouse movement                                 |
 | `swiperIcon`  | `string`                     | Default arrows SVG | CSS `background-image` value for the swiper handle. Use `'none'` to hide |
 | `swiperStyle` | `SwiperStyle`                | `undefined`        | Custom styles for the swiper handle                                      |
+| `theme`       | `Theme`                      | `'system'`         | Theme mode: `'light'`, `'dark'`, or `'system'` (follows OS preference)   |
+| `lightColors` | `Partial<ThemeColors>`       | `undefined`        | Custom colors for light theme                                            |
+| `darkColors`  | `Partial<ThemeColors>`       | `undefined`        | Custom colors for dark theme                                             |
 
-### SwiperStyle
+### Types
 
 ```typescript
+type Theme = 'light' | 'dark' | 'system';
+
+interface ThemeColors {
+  swiperBackground: string;
+  swiperBorder: string;
+  lineBackground: string;
+}
+
 type SwiperStyle = Partial<{
   backgroundColor: string;
   width: string;
@@ -98,6 +112,10 @@ type SwiperStyle = Partial<{
 #### `setSlider(position: number): void`
 
 Programmatically set the slider position in pixels.
+
+#### `setTheme(theme: Theme): void`
+
+Change the theme at runtime. Accepts `'light'`, `'dark'`, or `'system'`.
 
 #### `on(type: 'slideend', listener: (data: SlideEndEventData) => void): this`
 
@@ -116,6 +134,10 @@ Remove the compare control and clean up event listeners.
 #### `currentPosition: number` (readonly)
 
 The current slider position in pixels.
+
+#### `theme: Theme` (readonly)
+
+The current theme setting.
 
 ## Examples
 
@@ -138,6 +160,41 @@ const compare = new Compare(beforeMap, afterMap, '#container', {
 ```typescript
 const compare = new Compare(beforeMap, afterMap, '#container', {
   mousemove: true,
+});
+```
+
+### Theme Support
+
+```typescript
+// Follow system preference (default)
+const compare = new Compare(beforeMap, afterMap, '#container', {
+  theme: 'system',
+});
+
+// Force dark theme
+const compare = new Compare(beforeMap, afterMap, '#container', {
+  theme: 'dark',
+});
+
+// Change theme at runtime
+compare.setTheme('light');
+```
+
+### Custom Theme Colors
+
+```typescript
+const compare = new Compare(beforeMap, afterMap, '#container', {
+  theme: 'system',
+  lightColors: {
+    swiperBackground: '#2563eb',
+    swiperBorder: '#ffffff',
+    lineBackground: '#e5e7eb',
+  },
+  darkColors: {
+    swiperBackground: '#3b82f6',
+    swiperBorder: '#1f2937',
+    lineBackground: '#4b5563',
+  },
 });
 ```
 
@@ -177,6 +234,12 @@ export { syncMaps } from '@geoql/maplibre-gl-compare';
 // Default swiper icon (base64 SVG)
 export { DEFAULT_SWIPER_ICON } from '@geoql/maplibre-gl-compare';
 
+// Default theme colors
+export {
+  DEFAULT_LIGHT_COLORS,
+  DEFAULT_DARK_COLORS,
+} from '@geoql/maplibre-gl-compare';
+
 // Types
 export type {
   CompareOptions,
@@ -186,6 +249,8 @@ export type {
   Container,
   Orientation,
   SwiperStyle,
+  Theme,
+  ThemeColors,
 } from '@geoql/maplibre-gl-compare';
 ```
 

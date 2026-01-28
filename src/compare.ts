@@ -6,9 +6,12 @@ import type {
   SlideEndEventData,
   Container,
   SyncCleanup,
+  Theme,
+  ThemeColors,
 } from './types.js';
 import { syncMaps } from './sync-maps.js';
 import { DEFAULT_SWIPER_ICON } from './swiper-icon.js';
+import { DEFAULT_LIGHT_COLORS, DEFAULT_DARK_COLORS } from './theme-colors.js';
 
 export class Compare {
   private readonly mapA: MaplibreMapInterface;
@@ -22,6 +25,10 @@ export class Compare {
 
   private bounds: DOMRect;
   private _currentPosition: number;
+  private _currentTheme: Theme;
+  private readonly mediaQuery: MediaQueryList | null;
+  private readonly lightColors: ThemeColors;
+  private readonly darkColors: ThemeColors;
 
   constructor(
     mapA: MaplibreMapInterface,
@@ -35,6 +42,23 @@ export class Compare {
     this.horizontal = this.options.orientation === 'horizontal';
     this.listeners = new Map();
     this._currentPosition = 0;
+
+    this._currentTheme = this.options.theme ?? 'system';
+    this.lightColors = { ...DEFAULT_LIGHT_COLORS, ...this.options.lightColors };
+    this.darkColors = { ...DEFAULT_DARK_COLORS, ...this.options.darkColors };
+
+    if (
+      this._currentTheme === 'system' &&
+      typeof window !== 'undefined' &&
+      window.matchMedia
+    ) {
+      this.mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      this.mediaQuery.addEventListener('change', this.handleSystemThemeChange);
+    } else {
+      this.mediaQuery = null;
+    }
+
+    this.applyTheme();
 
     this.swiper = document.createElement('div');
     this.swiper.className = this.horizontal
@@ -77,8 +101,32 @@ export class Compare {
     return this._currentPosition;
   }
 
+  get theme(): Theme {
+    return this._currentTheme;
+  }
+
   setSlider(x: number): void {
     this.setPosition(x);
+  }
+
+  setTheme(theme: Theme): void {
+    const previousTheme = this._currentTheme;
+    this._currentTheme = theme;
+
+    if (previousTheme === 'system' && theme !== 'system' && this.mediaQuery) {
+      this.mediaQuery.removeEventListener(
+        'change',
+        this.handleSystemThemeChange,
+      );
+    } else if (
+      previousTheme !== 'system' &&
+      theme === 'system' &&
+      this.mediaQuery
+    ) {
+      this.mediaQuery.addEventListener('change', this.handleSystemThemeChange);
+    }
+
+    this.applyTheme();
   }
 
   on(type: CompareEventType, listener: CompareEventListener): this {
@@ -112,6 +160,15 @@ export class Compare {
   remove(): void {
     this.clearSync();
     this.mapB.off('resize', this.handleResize);
+
+    if (this.mediaQuery) {
+      this.mediaQuery.removeEventListener(
+        'change',
+        this.handleSystemThemeChange,
+      );
+    }
+
+    document.documentElement.removeAttribute('data-compare-theme');
 
     const aContainer = this.mapA.getContainer();
     if (aContainer) {
@@ -206,6 +263,46 @@ export class Compare {
       this.setPosition(this._currentPosition);
     }
   };
+
+  private handleSystemThemeChange = (): void => {
+    if (this._currentTheme === 'system') {
+      this.applyTheme();
+    }
+  };
+
+  private getResolvedTheme(): 'light' | 'dark' {
+    if (this._currentTheme === 'system') {
+      if (this.mediaQuery) {
+        return this.mediaQuery.matches ? 'dark' : 'light';
+      }
+      return 'light';
+    }
+    return this._currentTheme;
+  }
+
+  private applyTheme(): void {
+    const resolved = this.getResolvedTheme();
+    const colors = resolved === 'dark' ? this.darkColors : this.lightColors;
+
+    document.documentElement.style.setProperty(
+      '--compare-swiper-bg',
+      colors.swiperBackground,
+    );
+    document.documentElement.style.setProperty(
+      '--compare-swiper-border',
+      colors.swiperBorder,
+    );
+    document.documentElement.style.setProperty(
+      '--compare-line-bg',
+      colors.lineBackground,
+    );
+
+    if (this._currentTheme === 'system') {
+      document.documentElement.removeAttribute('data-compare-theme');
+    } else {
+      document.documentElement.setAttribute('data-compare-theme', resolved);
+    }
+  }
 
   private handleDown = (e: MouseEvent | TouchEvent): void => {
     e.preventDefault();

@@ -1,5 +1,31 @@
+:root {
+  --compare-swiper-bg: #3887be;
+  --compare-swiper-border: #ffffff;
+  --compare-line-bg: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-compare-theme='light']) {
+    --compare-swiper-bg: #60a5fa;
+    --compare-swiper-border: #1f2937;
+    --compare-line-bg: #374151;
+  }
+}
+
+:root[data-compare-theme='light'] {
+  --compare-swiper-bg: #3887be;
+  --compare-swiper-border: #ffffff;
+  --compare-line-bg: #ffffff;
+}
+
+:root[data-compare-theme='dark'] {
+  --compare-swiper-bg: #60a5fa;
+  --compare-swiper-border: #1f2937;
+  --compare-line-bg: #374151;
+}
+
 .maplibregl-compare {
-  background-color: #fff;
+  background-color: var(--compare-line-bg);
   position: absolute;
   width: 2px;
   height: 100%;
@@ -7,8 +33,8 @@
 }
 
 .maplibregl-compare .compare-swiper-vertical {
-  background-color: #3887be;
-  box-shadow: inset 0 0 0 2px #fff;
+  background-color: var(--compare-swiper-bg);
+  box-shadow: inset 0 0 0 2px var(--compare-swiper-border);
   display: inline-block;
   border-radius: 50%;
   position: absolute;
@@ -29,8 +55,8 @@
 }
 
 .maplibregl-compare .compare-swiper-horizontal {
-  background-color: #3887be;
-  box-shadow: inset 0 0 0 2px #fff;
+  background-color: var(--compare-swiper-bg);
+  box-shadow: inset 0 0 0 2px var(--compare-swiper-border);
   display: inline-block;
   border-radius: 50%;
   position: absolute;

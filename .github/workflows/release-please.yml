@@ -39,14 +39,14 @@ jobs:
       id-token: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: ${{ needs.release-please.outputs.tag_name || github.event.inputs.tag }}
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: 'lts/*'
+          node-version: '24'
           registry-url: 'https://registry.npmjs.org'
 
       - name: Setup Bun
@@ -60,5 +60,8 @@ jobs:
       - name: Build
         run: bun run build
 
-      - name: Publish to npm (OIDC)
-        run: npm publish --provenance --access public
+      - name: Publish to npm with provenance
+        run: npm publish --provenance --access public --ignore-scripts
+
+      - name: Publish to JSR
+        run: bunx jsr publish --allow-dirty --allow-slow-types
