@@ -1,0 +1,83 @@
+{
+  "name": "@geoql/maplibre-gl-compare",
+  "version": "0.0.1",
+  "private": false,
+  "description": "Swipe-style map comparison control for MapLibre GL JS",
+  "keywords": [
+    "compare",
+    "gl",
+    "maplibre",
+    "maplibregl",
+    "maps",
+    "swipe"
+  ],
+  "homepage": "https://github.com/geoql/maplibre-gl-compare#readme",
+  "bugs": {
+    "url": "https://github.com/geoql/maplibre-gl-compare/issues"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Vinayak Kulkarni",
+    "email": "inbox.vinayak@gmail.com",
+    "url": "https://vinayakkulkarni.dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/geoql/maplibre-gl-compare.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs"
+    },
+    "./style.css": "./dist/style.css"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "prepare": "is-ci || husky",
+    "lint": "oxlint --deny-warnings",
+    "lint:fix": "oxlint --fix",
+    "format": "oxfmt --check",
+    "format:fix": "oxfmt --write",
+    "typecheck": "tsc --noEmit",
+    "publish:npm": "npm publish --access public",
+    "publish:jsr": "bunx jsr publish"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^20.0.0",
+    "@commitlint/config-conventional": "^20.0.0",
+    "@commitlint/types": "^20.0.0",
+    "@types/node": "^25.0.0",
+    "@vitest/coverage-v8": "^4.0.0",
+    "happy-dom": "^20.4.0",
+    "husky": "^9.0.0",
+    "is-ci": "^4.0.0",
+    "lint-staged": "^16.0.0",
+    "oxfmt": "^0.27.0",
+    "oxlint": "^1.42.0",
+    "tsdown": "^0.20.0",
+    "typescript": "^5.8.0",
+    "vitest": "^4.0.0"
+  },
+  "peerDependencies": {
+    "maplibre-gl": ">=2.0.0"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "packageManager": "bun@1.3.5"
+}

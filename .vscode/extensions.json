@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    // Core: OXC (oxlint + oxfmt)
+    "oxc.oxc-vscode",
+
+    // DotEnv syntax highlighting
+    "mikestead.dotenv"
+  ]
+}
