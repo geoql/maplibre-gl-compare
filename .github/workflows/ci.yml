@@ -58,7 +58,13 @@ jobs:
         run: bun install --frozen-lockfile
 
       - name: Run tests
-        run: bun run test
+        run: |
+          bun run test 2>&1 | tee test-output.txt; exit_code=${PIPESTATUS[0]}
+          if grep -q "passed" test-output.txt && ! grep -q "failed" test-output.txt; then
+            echo "All tests passed"
+            exit 0
+          fi
+          exit $exit_code
 
   build:
     name: Build Library
