@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'example/**'
+      - 'src/**'
   workflow_dispatch:
 
 permissions:
