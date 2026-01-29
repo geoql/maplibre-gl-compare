@@ -214,12 +214,14 @@ const compare = new Compare(beforeMap, afterMap, '#container', {
 
 ### Custom Emoji Icon
 
-Use an SVG data URL to render an emoji (or any text) as the swiper icon. The icon is applied as a CSS `background-image`, so it is automatically centered.
+Use an SVG data URL with `<foreignObject>` to render an emoji (or any text) as the swiper icon. The `<foreignObject>` approach ensures pixel-perfect centering across all platforms, unlike SVG `<text>` which has inconsistent emoji bounding boxes.
 
 ```typescript
 const emojiIcon = `url("data:image/svg+xml,${encodeURIComponent(
   '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32">' +
-    '<text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" font-size="16">↔️</text>' +
+    '<foreignObject width="32" height="32">' +
+    '<div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-size:16px;">↔️</div>' +
+    '</foreignObject>' +
     '</svg>',
 )}")`;
 
