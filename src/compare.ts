@@ -223,8 +223,8 @@ export class Compare {
     const position = Math.min(Math.max(0, x), maxPosition);
 
     const transform = this.horizontal
-      ? `translate(0, ${position}px)`
-      : `translate(${position}px, 0)`;
+      ? `translate(0, ${position - 1}px)`
+      : `translate(${position - 1}px, 0)`;
 
     this.controlContainer.style.transform = transform;
 
