@@ -100,6 +100,7 @@ type SwiperStyle = Partial<{
   backgroundColor: string;
   width: string;
   height: string;
+  padding: string;
   borderRadius: string;
   boxShadow: string;
   border: string;
@@ -214,27 +215,15 @@ const compare = new Compare(beforeMap, afterMap, '#container', {
 
 ### Custom Emoji Icon
 
-Use an SVG data URL with `<foreignObject>` to render an emoji (or any text) as the swiper icon. The `<foreignObject>` approach ensures pixel-perfect centering across all platforms, unlike SVG `<text>` which has inconsistent emoji bounding boxes.
+Pass any emoji or text string directly to `swiperIcon`. Non-CSS values are rendered as centered text content inside the swiper handle.
 
 ```typescript
-const emojiIcon = `url("data:image/svg+xml,${encodeURIComponent(
-  '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32">' +
-    '<foreignObject width="32" height="32">' +
-    '<div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-size:16px;">↔️</div>' +
-    '</foreignObject>' +
-    '</svg>',
-)}")`;
-
 const compare = new Compare(beforeMap, afterMap, '#container', {
-  swiperIcon: emojiIcon,
-  swiperStyle: {
-    width: '32px',
-    height: '32px',
-  },
+  swiperIcon: '↔️',
 });
 ```
 
-> **Tip:** Match the SVG `width`/`height` to `swiperStyle` dimensions for a crisp result. The icon will stay centered at any size.
+> **Note:** CSS values like `url(...)`, `none`, and gradients are applied as `background-image`. Everything else is rendered as text content with automatic centering.
 
 ### Listen to Slide Events
 

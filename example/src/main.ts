@@ -31,30 +31,24 @@ afterMap.on('load', () => {
   );
 });
 
-const emojiIcon = `url("data:image/svg+xml,${encodeURIComponent(
-  '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32">' +
-    '<foreignObject width="32" height="32">' +
-    '<div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-size:16px;">↔️</div>' +
-    '</foreignObject>' +
-    '</svg>',
-)}")`;
-
 const compare = new Compare(beforeMap, afterMap, '#comparison-container', {
   mousemove: false,
   orientation: 'vertical',
   theme: 'system',
-  swiperIcon: emojiIcon,
+  swiperIcon: '↔️',
   swiperStyle: {
     width: '32px',
     height: '32px',
+    padding: '12px',
   },
   lightColors: {
-    swiperBackground: '#0072da',
-    swiperBorder: '#d5d7de',
-    lineBackground: '#d5d7de',
+    swiperBackground:
+      'radial-gradient(circle,rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%)',
+    swiperBorder: '#ffffff',
+    lineBackground: '#ffffff',
   },
   darkColors: {
-    swiperBackground: '#0092fd',
+    swiperBackground: 'radial-gradient(circle, #1a1a2e 0%, #050609 100%)',
     swiperBorder: '#27292e',
     lineBackground: '#27292e',
   },
