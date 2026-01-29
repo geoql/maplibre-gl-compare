@@ -64,8 +64,7 @@ export class Compare {
     this.swiper.className = this.horizontal
       ? 'compare-swiper-horizontal'
       : 'compare-swiper-vertical';
-    this.swiper.style.backgroundImage =
-      this.options.swiperIcon ?? DEFAULT_SWIPER_ICON;
+    this.applySwiperIcon(this.options.swiperIcon ?? DEFAULT_SWIPER_ICON);
     if (this.options.swiperStyle) {
       Object.assign(this.swiper.style, this.options.swiperStyle);
     }
@@ -209,6 +208,23 @@ export class Compare {
     throw new Error(
       'Invalid container specified. Must be CSS selector or HTML element.',
     );
+  }
+
+  private applySwiperIcon(icon: string): void {
+    const isCssValue =
+      icon === 'none' ||
+      icon.startsWith('url(') ||
+      icon.startsWith('linear-gradient') ||
+      icon.startsWith('radial-gradient');
+
+    if (isCssValue) {
+      this.swiper.style.backgroundImage = icon;
+      this.swiper.style.backgroundSize = 'contain';
+      this.swiper.style.backgroundPosition = 'center';
+      this.swiper.style.backgroundRepeat = 'no-repeat';
+    } else {
+      this.swiper.textContent = icon;
+    }
   }
 
   private setPointerEvents(value: string): void {

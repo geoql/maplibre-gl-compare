@@ -17,6 +17,7 @@ export type SwiperStyle = Partial<
     | 'backgroundColor'
     | 'width'
     | 'height'
+    | 'padding'
     | 'borderRadius'
     | 'boxShadow'
     | 'border'
