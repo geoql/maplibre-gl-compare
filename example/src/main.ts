@@ -31,7 +31,7 @@ afterMap.on('load', () => {
   );
 });
 
-const emojiSvg = `url("data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"><text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" font-size="24">↔️</text></svg>')}")`;
+const emojiSvg = `url("data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" font-size="16">↔️</text></svg>')}")`;
 
 const compare = new Compare(beforeMap, afterMap, '#comparison-container', {
   mousemove: false,
@@ -39,8 +39,8 @@ const compare = new Compare(beforeMap, afterMap, '#comparison-container', {
   theme: 'system',
   swiperIcon: emojiSvg,
   swiperStyle: {
-    width: '40px',
-    height: '40px',
+    width: '32px',
+    height: '32px',
   },
 });
 
