@@ -31,10 +31,19 @@ afterMap.on('load', () => {
   );
 });
 
+const emojiSvg = `url("data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"><text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" font-size="24">↔️</text></svg>')}")`;
+
 const compare = new Compare(beforeMap, afterMap, '#comparison-container', {
   mousemove: false,
   orientation: 'vertical',
   theme: 'system',
+  swiperIcon: emojiSvg,
+  swiperStyle: {
+    backgroundColor: '#18181b',
+    boxShadow: '0 0 0 2px rgba(255,255,255,0.15), 0 8px 24px rgba(0,0,0,0.5)',
+    width: '40px',
+    height: '40px',
+  },
 });
 
 compare.on('slideend', (e) => {
