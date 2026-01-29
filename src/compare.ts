@@ -258,9 +258,14 @@ export class Compare {
   }
 
   private handleResize = (): void => {
+    const previousMax = this.horizontal
+      ? this.bounds.height
+      : this.bounds.width;
     this.bounds = this.mapB.getContainer().getBoundingClientRect();
-    if (this._currentPosition) {
-      this.setPosition(this._currentPosition);
+    if (this._currentPosition && previousMax > 0) {
+      const ratio = this._currentPosition / previousMax;
+      const newMax = this.horizontal ? this.bounds.height : this.bounds.width;
+      this.setPosition(ratio * newMax);
     }
   };
 

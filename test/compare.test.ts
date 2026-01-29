@@ -497,7 +497,8 @@ describe('Compare', () => {
 
       mapB.fire('resize');
 
-      expect(compare.currentPosition).toBe(400);
+      // Position scales proportionally: 400/800 * 1000 = 500
+      expect(compare.currentPosition).toBe(500);
 
       compare.remove();
     });
