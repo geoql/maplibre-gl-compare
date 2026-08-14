@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@geoql/maplibre-gl-compare": "file:..",
-    "maplibre-gl": "^5.17.0"
+    "maplibre-gl": "^6.3.0"
   },
   "devDependencies": {
     "@types/node": "^25.1.0",

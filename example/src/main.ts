@@ -1,4 +1,4 @@
-import maplibregl from 'maplibre-gl';
+import * as maplibregl from 'maplibre-gl';
 import { Compare } from '@geoql/maplibre-gl-compare';
 import type { Theme } from '@geoql/maplibre-gl-compare';
 import './style.css';
