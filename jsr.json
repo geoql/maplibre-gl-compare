@@ -1,7 +1,7 @@
 {
   "name": "@geoql/maplibre-gl-compare",
   "version": "0.0.3",
-  "exports": "./dist/index.mjs",
+  "exports": "./dist/index.js",
   "publish": {
     "include": [
       "dist",

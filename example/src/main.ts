@@ -54,15 +54,9 @@ const compare = new Compare(beforeMap, afterMap, '#comparison-container', {
   },
 });
 
-compare.on('slideend', (e) => {
-  console.log('Slider position:', e.currentPosition);
-});
-
 const themeSelect = document.getElementById(
   'theme-select',
 ) as HTMLSelectElement;
 themeSelect.addEventListener('change', () => {
-  const theme = themeSelect.value as Theme;
-  compare.setTheme(theme);
-  console.log('Theme changed to:', theme);
+  compare.setTheme(themeSelect.value as Theme);
 });
