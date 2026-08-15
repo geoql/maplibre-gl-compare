@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.0.4](https://github.com/geoql/maplibre-gl-compare/compare/v0.0.3...v0.0.4) (2026-08-15)
+
+
+### Bug Fixes
+
+* **example:** support maplibre-gl v6 (namespace import) ([5c2941b](https://github.com/geoql/maplibre-gl-compare/commit/5c2941b96614dc0ff568f47505f068e5f52627bd))
+
+
+### Miscellaneous
+
+* bump dependencies ✨ ([5b385a3](https://github.com/geoql/maplibre-gl-compare/commit/5b385a31f6731adb7a6b65586f78697324ce20f7))
+* update commit-msg husky hook 🪝 ([a7c6595](https://github.com/geoql/maplibre-gl-compare/commit/a7c6595bc5c5600cccb45fa3491e9681aa7660d0))
+* update commit-msg husky hook 🪝 ([1058e1b](https://github.com/geoql/maplibre-gl-compare/commit/1058e1b35c45b29c28727a398aa0b304853c508d))
+
 ## [0.0.3](https://github.com/geoql/maplibre-gl-compare/compare/v0.0.2...v0.0.3) (2026-01-29)
 
 
