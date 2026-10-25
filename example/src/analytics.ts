@@ -2,7 +2,7 @@
  * Analytics for the demo: Plausible + OpenPanel (loaded in index.html) and
  * GA4 (loaded here). GA4 is skipped while GA_MEASUREMENT_ID is empty.
  */
-export const GA_MEASUREMENT_ID: string = '';
+export const GA_MEASUREMENT_ID: string = 'G-9S2V8MTN81';
 
 type Props = Record<string, string | number | boolean>;
 
