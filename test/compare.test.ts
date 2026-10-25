@@ -315,7 +315,7 @@ describe('Compare', () => {
       document.dispatchEvent(new MouseEvent('mouseup'));
 
       expect(listener).toHaveBeenCalledWith({
-        currentPosition: expect.any(Number),
+        currentPosition: compare.currentPosition,
       });
 
       compare.remove();
@@ -394,7 +394,7 @@ describe('Compare', () => {
       document.dispatchEvent(new TouchEvent('touchend'));
 
       expect(listener).toHaveBeenCalledWith({
-        currentPosition: expect.any(Number),
+        currentPosition: compare.currentPosition,
       });
 
       compare.remove();
@@ -524,10 +524,11 @@ describe('Compare', () => {
 
     it('should remove resize listener from mapB', () => {
       const compare = new Compare(mapA, mapB, container);
+      const off = vi.spyOn(mapB, 'off');
 
       compare.remove();
 
-      expect(mapB.off).toHaveBeenCalledWith('resize', expect.any(Function));
+      expect(off).toHaveBeenCalledWith('resize', expect.any(Function));
     });
 
     it('should remove mousemove listeners when mousemove option was enabled', () => {
