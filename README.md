@@ -6,6 +6,8 @@ Swipe-style map comparison control for [MapLibre GL JS](https://maplibre.org/).
 [![JSR](https://jsr.io/badges/@geoql/maplibre-gl-compare)](https://jsr.io/@geoql/maplibre-gl-compare)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+**Live demo:** [maplibre-gl-compare.geoql.in](https://maplibre-gl-compare.geoql.in)
+
 ## Installation
 
 ```bash
@@ -17,17 +19,19 @@ pnpm add @geoql/maplibre-gl-compare
 
 # yarn
 yarn add @geoql/maplibre-gl-compare
-
-# bun
-bun add @geoql/maplibre-gl-compare
 ```
 
 ## Usage
 
 ```typescript
-import maplibregl from 'maplibre-gl';
+import * as maplibregl from 'maplibre-gl';
+// maplibre-gl v6 + Vite: point the library at its worker file.
+import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 import { Compare } from '@geoql/maplibre-gl-compare';
+import 'maplibre-gl/dist/maplibre-gl.css';
 import '@geoql/maplibre-gl-compare/style.css';
+
+maplibregl.setWorkerUrl(workerUrl);
 
 const beforeMap = new maplibregl.Map({
   container: 'before',
