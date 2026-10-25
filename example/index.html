@@ -2,23 +2,214 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MapLibre GL Compare Example</title>
+    <title>maplibre-gl-compare — swipe between two MapLibre maps</title>
+    <meta
+      name="description"
+      content="Live demo of @geoql/maplibre-gl-compare: a swipe-style comparison control for MapLibre GL JS with synced maps, vertical or horizontal orientation and light/dark themes."
+    />
+    <link rel="canonical" href="https://maplibre-gl-compare.geoql.in/" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="color-scheme" content="light dark" />
+    <meta property="og:title" content="maplibre-gl-compare" />
+    <meta
+      property="og:description"
+      content="Swipe-style map comparison control for MapLibre GL JS."
+    />
+    <meta property="og:url" content="https://maplibre-gl-compare.geoql.in/" />
+    <meta property="og:type" content="website" />
+    <script>
+      (function () {
+        var stored = null;
+        try {
+          stored = localStorage.getItem('maplibre-gl-compare-color-mode');
+        } catch (_) {}
+        var mode = stored === 'light' || stored === 'dark' ? stored : 'system';
+        var dark =
+          mode === 'dark' ||
+          (mode === 'system' &&
+            window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.classList.toggle('dark', dark);
+      })();
+    </script>
+    <!-- Plausible -->
+    <script
+      async
+      src="https://analytics.geoql.in/js/pa-5kW-9IEV-pAtzBQ4cLRIS.js"
+    ></script>
+    <script>
+      window.plausible =
+        window.plausible ||
+        function () {
+          (plausible.q = plausible.q || []).push(arguments);
+        };
+      plausible.init =
+        plausible.init ||
+        function (i) {
+          plausible.o = i || {};
+        };
+      plausible.init();
+    </script>
+    <!-- OpenPanel -->
+    <script>
+      window.op =
+        window.op ||
+        (function () {
+          var n = [];
+          return new Proxy(
+            function () {
+              arguments.length && n.push([].slice.call(arguments));
+            },
+            {
+              get: function (t, r) {
+                return 'q' === r
+                  ? n
+                  : function () {
+                      n.push([r].concat([].slice.call(arguments)));
+                    };
+              },
+              has: function (t, r) {
+                return 'q' === r;
+              },
+            },
+          );
+        })();
+      window.op('init', {
+        apiUrl: 'https://events.geoql.in/api',
+        clientId: '5752f96a-ebc0-4606-8a50-51fa7a07e4c9',
+        trackScreenViews: true,
+        trackOutgoingLinks: true,
+        trackAttributes: true,
+      });
+    </script>
+    <script src="https://openpanel.dev/op1.js" defer async></script>
   </head>
-  <body class="w-screen h-screen">
-    <div id="comparison-container" class="w-full h-full">
-      <div id="before" class="map"></div>
-      <div id="after" class="map"></div>
-    </div>
-    <div id="controls">
-      <label for="theme-select">Theme:</label>
-      <select id="theme-select">
-        <option value="system">System</option>
-        <option value="light">Light</option>
-        <option value="dark">Dark</option>
-      </select>
-    </div>
+  <body>
+    <main id="stage" aria-label="Map comparison">
+      <div id="before" class="map" role="region" aria-label="Before map"></div>
+      <div id="after" class="map" role="region" aria-label="After map"></div>
+      <p class="side-label side-before" aria-hidden="true">
+        <span class="side-mark">A</span>
+        <span class="side-name" id="before-name">Positron</span>
+      </p>
+      <p class="side-label side-after" aria-hidden="true">
+        <span class="side-mark">B</span>
+        <span class="side-name" id="after-name">Dark Matter</span>
+      </p>
+    </main>
+
+    <details id="panel" class="panel">
+      <summary class="panel-summary" id="panel-summary">
+        <span class="eyebrow">@geoql/maplibre-gl-compare</span>
+        <span class="summary-toggle" aria-hidden="true"></span>
+      </summary>
+
+      <div class="panel-body">
+        <h1 class="title">Swipe between two maps.</h1>
+        <p class="lede">
+          A comparison control for MapLibre GL JS. Both maps stay in sync while
+          you drag the handle.
+        </p>
+
+        <div class="install">
+          <code id="install-command">pnpm add @geoql/maplibre-gl-compare</code>
+          <button
+            type="button"
+            id="copy-install"
+            class="copy"
+            aria-label="Copy install command"
+          >
+            Copy
+          </button>
+        </div>
+
+        <form class="controls" id="controls" aria-label="Demo controls">
+          <div class="field">
+            <label for="before-style">Map A</label>
+            <select id="before-style" name="before-style"></select>
+          </div>
+          <div class="field">
+            <label for="after-style">Map B</label>
+            <select id="after-style" name="after-style"></select>
+          </div>
+
+          <fieldset class="field">
+            <legend>Orientation</legend>
+            <div class="segmented">
+              <label
+                ><input
+                  type="radio"
+                  name="orientation"
+                  value="vertical"
+                  checked
+                /><span>Vertical</span></label
+              >
+              <label
+                ><input
+                  type="radio"
+                  name="orientation"
+                  value="horizontal"
+                /><span>Horizontal</span></label
+              >
+            </div>
+          </fieldset>
+
+          <fieldset class="field">
+            <legend>Theme</legend>
+            <div class="segmented">
+              <label
+                ><input type="radio" name="theme" value="light" /><span
+                  >Light</span
+                ></label
+              >
+              <label
+                ><input type="radio" name="theme" value="system" /><span
+                  >System</span
+                ></label
+              >
+              <label
+                ><input type="radio" name="theme" value="dark" /><span
+                  >Dark</span
+                ></label
+              >
+            </div>
+          </fieldset>
+
+          <label class="toggle">
+            <input type="checkbox" id="mousemove" name="mousemove" />
+            <span
+              ><span>Follow the pointer (<code>mousemove</code>)</span></span
+            >
+          </label>
+        </form>
+
+        <p class="readout">
+          <span class="readout-key">slideend</span>
+          <output id="position" for="controls">—</output>
+        </p>
+
+        <nav class="links" aria-label="Project links">
+          <a
+            href="https://github.com/geoql/maplibre-gl-compare"
+            data-outbound="github"
+            rel="noopener"
+            >GitHub</a
+          >
+          <a
+            href="https://www.npmjs.com/package/@geoql/maplibre-gl-compare"
+            data-outbound="npm"
+            rel="noopener"
+            >npm</a
+          >
+          <a
+            href="https://jsr.io/@geoql/maplibre-gl-compare"
+            data-outbound="jsr"
+            rel="noopener"
+            >JSR</a
+          >
+        </nav>
+      </div>
+    </details>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
