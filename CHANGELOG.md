@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.0.5](https://github.com/geoql/maplibre-gl-compare/compare/v0.0.4...v0.0.5) (2026-10-25)
+
+
+### Features
+
+* **demo:** enable ga4 ([#19](https://github.com/geoql/maplibre-gl-compare/issues/19)) ([4bc09d9](https://github.com/geoql/maplibre-gl-compare/commit/4bc09d90cfe17c4141763125a1a246c946ef3e47))
+
+
+### Miscellaneous
+
+* move the demo to cloudflare workers, pnpm and latest deps ([#17](https://github.com/geoql/maplibre-gl-compare/issues/17)) ([d09e402](https://github.com/geoql/maplibre-gl-compare/commit/d09e402df9cfc1a9e5f2504a458d51b38c3eeb8b))
+
 ## [0.0.4](https://github.com/geoql/maplibre-gl-compare/compare/v0.0.3...v0.0.4) (2026-08-15)
 
 
