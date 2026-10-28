@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.6](https://github.com/geoql/maplibre-gl-compare/compare/v0.0.5...v0.0.6) (2026-10-28)
+
+
+### Documentation
+
+* link live demo and related projects ([#20](https://github.com/geoql/maplibre-gl-compare/issues/20)) ([2ef26e2](https://github.com/geoql/maplibre-gl-compare/commit/2ef26e2eaa66af64fd3824998c46acf4041909fc))
+
 ## [0.0.5](https://github.com/geoql/maplibre-gl-compare/compare/v0.0.4...v0.0.5) (2026-10-25)
 
 
