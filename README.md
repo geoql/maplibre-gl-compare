@@ -6,7 +6,7 @@ Swipe-style map comparison control for [MapLibre GL JS](https://maplibre.org/).
 [![JSR](https://jsr.io/badges/@geoql/maplibre-gl-compare)](https://jsr.io/@geoql/maplibre-gl-compare)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**Live demo:** [maplibre-gl-compare.geoql.in](https://maplibre-gl-compare.geoql.in)
+**[Live demo](https://maplibre-gl-compare.geoql.in/?utm_source=github&utm_medium=readme&utm_campaign=maplibre-gl-compare)** · [npm](https://www.npmjs.com/package/@geoql/maplibre-gl-compare) · [JSR](https://jsr.io/@geoql/maplibre-gl-compare)
 
 ## Installation
 
@@ -275,6 +275,17 @@ export type {
 
 - MapLibre GL JS >= 2.0.0
 - Node.js >= 24.0.0
+
+## More from the author
+
+- [maplibre-gl-inspect](https://maplibre-gl-inspect.geoql.in/?utm_source=github&utm_medium=readme&utm_campaign=maplibre-gl-compare) — inspect vector tile features and their properties
+- [maplibre-gl-draw-circle](https://maplibre-gl-draw-circle.geoql.in/?utm_source=github&utm_medium=readme&utm_campaign=maplibre-gl-compare) — draw and edit circles on a MapLibre map
+- [maplibre-gl-wind](https://maplibre-gl-wind.geoql.in/?utm_source=github&utm_medium=readme&utm_campaign=maplibre-gl-compare) — wind particle animation layer
+- [maplibre-gl-interpolate-heatmap](https://maplibre-gl-interpolate-heatmap.geoql.in/?utm_source=github&utm_medium=readme&utm_campaign=maplibre-gl-compare) — IDW interpolated heatmap layer
+- [v-maplibre](https://v-maplibre.geoql.in/?utm_source=github&utm_medium=readme&utm_campaign=maplibre-gl-compare) — 50+ Vue 3 components for MapLibre GL
+- [mapcn-vue](https://mapcn-vue.geoql.in/?utm_source=github&utm_medium=readme&utm_campaign=maplibre-gl-compare) — shadcn-vue map components you copy into your app
+
+See every project at [vinayakkulkarni.dev/projects](https://vinayakkulkarni.dev/projects?utm_source=github&utm_medium=readme&utm_campaign=maplibre-gl-compare) and [geoql.in](https://geoql.in/?utm_source=github&utm_medium=readme&utm_campaign=maplibre-gl-compare).
 
 ## License
 
